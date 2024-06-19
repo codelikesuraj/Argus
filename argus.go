@@ -40,7 +40,7 @@ func (a *Argus) SetOutput(w io.Writer) {
 func (a *Argus) Log(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		defer func(t time.Time, r *http.Request) {
-			fmt.Fprintln(a.output, r.Method, r.Response.StatusCode, r.URL.RawQuery, time.Since(t).Abs().String())
+			fmt.Fprintln(a.output, "Argus:", r.Method, r.Response.StatusCode, r.URL.RawQuery, time.Since(t).Abs().String())
 		}(time.Now(), r)
 
 		next.ServeHTTP(w, r)
